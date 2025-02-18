@@ -53,14 +53,26 @@ async function sendMessage() {
         
         const data = await response.json();
         
-        // Extract the response text from Gemini API response
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        // Check if we have an error in the response
+        if (data.error) {
+            throw new Error(data.error.message || 'API Error');
+        }
+
+        // Extract the response text
+        let aiResponse = 'Sorry, I could not generate a response.';
+        if (data.candidates && 
+            data.candidates[0] && 
+            data.candidates[0].content && 
+            data.candidates[0].content.parts && 
+            data.candidates[0].content.parts[0]) {
+            aiResponse = data.candidates[0].content.parts[0].text;
+        }
         
         // Add AI response to chat
         appendMessage('bot', aiResponse);
     } catch (error) {
         console.error('Error:', error);
-        appendMessage('bot', 'Sorry, I encountered an error. Please try again.');
+        appendMessage('bot', `Error: ${error.message}`);
     }
 }
 

@@ -23,26 +23,29 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const API_KEY = process.env.GOOGLE_AI_API_KEY;
+const API_KEY = process.env.GEMINI_API_KEY;
 
 app.post('/api/chat', async (req, res) => {
     try {
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: req.body.message
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: req.body.message
+                        }]
                     }]
-                }]
-            })
-        });
+                })
+            }
+        );
 
         const data = await response.json();
+        console.log('API Response:', data);
         res.json(data);
     } catch (error) {
         console.error('Server Error:', error);
