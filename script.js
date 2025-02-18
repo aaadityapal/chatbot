@@ -28,6 +28,20 @@ function toggleChat() {
     }
 }
 
+function showTypingIndicator() {
+    const chatBody = document.getElementById('chatBody');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'typing-indicator';
+    typingDiv.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+    `;
+    chatBody.appendChild(typingDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return typingDiv;
+}
+
 async function sendMessage() {
     const userInput = document.getElementById('userInput');
     const chatBody = document.getElementById('chatBody');
@@ -42,6 +56,9 @@ async function sendMessage() {
     appendMessage('user', message);
     userInput.value = '';
     
+    // Show typing indicator
+    const typingIndicator = showTypingIndicator();
+    
     try {
         const response = await fetch('/api/chat', {
             method: 'POST',
@@ -51,14 +68,15 @@ async function sendMessage() {
             body: JSON.stringify({ message: message })
         });
         
+        // Remove typing indicator
+        typingIndicator.remove();
+        
         const data = await response.json();
         
-        // Check if we have an error in the response
         if (data.error) {
             throw new Error(data.error.message || 'API Error');
         }
 
-        // Extract the response text
         let aiResponse = 'Sorry, I could not generate a response.';
         if (data.candidates && 
             data.candidates[0] && 
@@ -68,9 +86,11 @@ async function sendMessage() {
             aiResponse = data.candidates[0].content.parts[0].text;
         }
         
-        // Add AI response to chat
         appendMessage('bot', aiResponse);
     } catch (error) {
+        // Remove typing indicator
+        typingIndicator.remove();
+        
         console.error('Error:', error);
         appendMessage('bot', `Error: ${error.message}`);
     }

@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Widget</title>
+    <title>AI Chat Assistant</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Chat Toggle Button -->
     <div class="chat-widget-container">
         <div class="chat-widget" id="chatWidget">
             <div class="chat-header">
-                <h3>AI Assistant</h3>
-                <button class="minimize-btn" onclick="toggleChat()">−</button>
+                <h3><i class="fas fa-robot"></i> AI Assistant</h3>
+                <button class="minimize-btn" onclick="toggleChat()">
+                    <i class="fas fa-minus"></i>
+                </button>
             </div>
             <div class="chat-body" id="chatBody">
                 <!-- Messages will appear here -->
             </div>
             <div class="chat-input">
                 <input type="text" id="userInput" placeholder="Type your message...">
-                <button onclick="sendMessage()">Send</button>
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
         </div>
         <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
-            <span class="chat-icon">💬</span>
+            <i class="fas fa-comments"></i>
         </button>
     </div>
     <script src="script.js"></script>
