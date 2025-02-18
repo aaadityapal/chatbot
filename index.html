@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Widget</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Chat Toggle Button -->
+    <div class="chat-widget-container">
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-header">
+                <h3>AI Assistant</h3>
+                <button class="minimize-btn" onclick="toggleChat()">−</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
+            <span class="chat-icon">💬</span>
+        </button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
