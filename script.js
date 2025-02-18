@@ -19,6 +19,7 @@ async function sendMessage() {
     const userInput = document.getElementById('userInput');
     const chatBody = document.getElementById('chatBody');
     const message = userInput.value.trim();
+    const API_KEY = 'AIzaSyCLbr0Zvv0OnNRnnnzkaE1tHWEm2RfvMFs'; // Replace with your API key
     
     if (message === '') return;
     
@@ -27,19 +28,28 @@ async function sendMessage() {
     userInput.value = '';
     
     try {
-        // Replace YOUR_API_ENDPOINT with your actual API endpoint
-        const response = await fetch('AIzaSyCLbr0Zvv0OnNRnnnzkaE1tHWEm2RfvMFs', {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
             },
-            body: JSON.stringify({ message: message })
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: message
+                    }]
+                }]
+            })
         });
         
         const data = await response.json();
         
+        // Extract the response text from Gemini API response
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        
         // Add AI response to chat
-        appendMessage('bot', data.response);
+        appendMessage('bot', aiResponse);
     } catch (error) {
         console.error('Error:', error);
         appendMessage('bot', 'Sorry, I encountered an error. Please try again.');
