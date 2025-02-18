@@ -93,8 +93,35 @@
             </div>
         </div>
         <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">
-            <i class="fas fa-comments"></i>
+            <svg class="cute-robot" viewBox="0 0 24 24">
+                <!-- Robot Head -->
+                <rect class="head" x="5" y="4" width="14" height="13" rx="7" fill="white"/>
+                
+                <!-- Antenna -->
+                <circle class="antenna-ball" cx="12" cy="2" r="1.5"/>
+                <line class="antenna-stick" x1="12" y1="3.5" x2="12" y2="4"/>
+                
+                <!-- Eyes -->
+                <circle class="eye left" cx="9" cy="9" r="1.25"/>
+                <circle class="eye right" cx="15" cy="9" r="1.25"/>
+                
+                <!-- Rosy Cheeks -->
+                <circle class="cheek left" cx="7.5" cy="11" r="1" fill="rgba(255,192,203,0.6)"/>
+                <circle class="cheek right" cx="16.5" cy="11" r="1" fill="rgba(255,192,203,0.6)"/>
+                
+                <!-- Smile -->
+                <path class="mouth" d="M9 12.5C10.5 14 13.5 14 15 12.5" 
+                      fill="none" stroke="black" stroke-width="0.8" stroke-linecap="round"/>
+                
+                <!-- Body -->
+                <rect class="body" x="8" y="17" width="8" height="5" rx="2"/>
+                
+                <!-- Arms -->
+                <rect class="arm left" x="5" y="17" width="3" height="4" rx="1.5"/>
+                <rect class="arm right" x="16" y="17" width="3" height="4" rx="1.5"/>
+            </svg>
         </button>
+        
     </div>
 
     <!-- Footer -->
